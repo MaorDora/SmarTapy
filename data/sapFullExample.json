@@ -1,0 +1,85 @@
+{
+    "AUFNR": "80009988",
+    "QMEL": "20007766",
+    "AUART": "PM01",
+    "KTEXT": "רעש חריג מהמנוע + נזילת שמן",
+    "STTXT": "REL CNF MANC",
+    "WARPL": "",
+    "INGRP": "OFC_HQ",
+    "VAPLZ": "MECH_HVY",
+    "TPLNR": "IL-NORTH-GOLANI",
+    "EQUNR": "9123456",
+    "BAUTL": "ENG_ASM",
+    "GSTRP": "2024-02-01",
+    "GLTRP": "2024-02-03",
+    "GETRI": "2024-02-05",
+    "FTRMI": "",
+    "AUSVN": "2024-01-31T18:00:00",
+    "AUSBS": "",
+    "MSAUS": 48.5,
+    "BRKDWN": true,
+    "FECOD": "NOI",
+    "URCOD": "NORM",
+    "PROBC": "ENGINE",
+    "MNCOD": "OVH",
+    "ERNAM": "M_COHEN",
+    "operations": [
+        {
+            "operationNum": "0010",
+            "workCenter": "MECH_HVY",
+            "description": "פירוק ראש מנוע ודיאגנוסטיקה",
+            "plannedWork": 4.0,
+            "actualWork": 5.5,
+            "status": "CNF"
+        },
+        {
+            "operationNum": "0020",
+            "workCenter": "OUT_SRC",
+            "description": "שליחה לחריטה אצל קבלן",
+            "plannedWork": 24.0,
+            "actualWork": 48.0,
+            "status": "PCNF"
+        },
+        {
+            "operationNum": "0030",
+            "workCenter": "MECH_HVY",
+            "description": "הרכבה ובדיקת לחץ",
+            "plannedWork": 6.0,
+            "actualWork": 0.0,
+            "status": "REL"
+        }
+    ],
+    "components": [
+        {
+            "materialNum": "88990011",
+            "description": "קיט אטמים עליון למנוע דיזל",
+            "quantityRequired": 1,
+            "quantityWithdrawn": 1,
+            "storageLocation": "MAIN_WH"
+        },
+        {
+            "materialNum": "77665544",
+            "description": "בוכנה 120מ\"מ",
+            "quantityRequired": 6,
+            "quantityWithdrawn": 0,
+            "storageLocation": "MAIN_WH"
+        }
+    ],
+    "partners": [
+        {
+            "role": "Driver",
+            "name": "דוד המלך",
+            "id": "DRV_777"
+        },
+        {
+            "role": "Technician",
+            "name": "בצלאל האומן",
+            "id": "TECH_001"
+        }
+    ],
+    "costs": {
+        "plannedConfig": 12000,
+        "actual": 4500,
+        "currency": "ILS"
+    }
+}
