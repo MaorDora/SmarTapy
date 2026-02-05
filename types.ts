@@ -35,8 +35,17 @@ export interface Anomaly {
   title: string;
   description: string; // Context
   severity: Severity;
-  conflicts: DataConflict[];
+  type: 'zombie' | 'revolving' | 'skill' | 'logistic_mismatch' | 'data_integrity' | 'other';
+  punchline: string; // The suspicion description
+  conflicts?: DataConflict[]; // Optional now as we might just use punchline
   actionLabel: string;
+
+
+  // Card Footer Data (Gray Section)
+  department?: string;
+  technician?: string;
+  eventTime?: string;
+  statusText?: string;
 
   // Detail View Data
   isLemon: boolean; // "Revolving Door" / Recurring vehicle
@@ -134,4 +143,12 @@ export interface Technician {
   availability: 'AVAILABLE' | 'VACATION' | 'GUARD_DUTY' | 'SICK';
   skillLevel: 'CERTIFIED' | 'NOT_CERTIFIED' | 'EXPERT';
   department?: string;
+}
+
+export interface CompassWidget {
+  id: string;
+  type: 'trend' | 'bottleneck' | 'opportunity';
+  title: string;
+  value: string;
+  metric?: string; // e.g., "-15%"
 }

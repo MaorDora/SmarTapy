@@ -2,84 +2,134 @@ import { Anomaly, SAPWorkOrder } from '../types';
 
 export const mockAnomalies: Anomaly[] = [
   {
-    id: 'REQ-1.0',
-    vehicleId: "צ' 81900",
-    title: 'סתירה בסטטוס כלי',
-    description: 'חוסר תאימות בין מערכות לוגיסטיות לתפעוליות.',
+    id: '80012490',
+    vehicleId: "נמ״ר 881100",
+    title: 'סתירה לוגיסטית',
+    type: 'logistic_mismatch',
+    description: 'דיווח "ממתין לחלף" אל מול ניפוק בפועל',
+    punchline: 'נמ"ר צ\' 881100 בסטטוס "ממתין לחלף", אך המנוע נופק ב-02/02.',
     severity: 'high',
     conflicts: [
-      { label: 'ERP', value: 'בתיקון', source: 'מערכת ראשית', isMismatch: true },
-      { label: 'לוגיסטיקה', value: 'ממתין לחלק', source: 'מחסן', isMismatch: true }
+      { label: 'סטטוס בפועל', value: 'ממתין לחלף', source: 'מערכת ניהול', isMismatch: true },
+      { label: 'ניפוק חלפים', value: 'בוצע (לפני 48 שעות)', source: 'מחסן', isMismatch: true }
     ],
-    actionLabel: 'עדכן סטטוס',
+    actionLabel: "עדכן סטטוס",
+    department: 'חימוש',
+    technician: 'אבי ביטון',
+    eventTime: '08:00 היום',
+    statusText: 'פתיחה מחדש',
     isLemon: false,
     timeline: [
-      { id: '1', date: '24/10/2023', time: '08:30', label: 'פתיחת תקלה', status: 'completed' },
-      { id: '2', date: '24/10/2023', time: '10:15', label: 'הזמנת רכש', status: 'completed' },
-      { id: '3', date: 'היום', time: '14:00', label: 'חריגת סטטוס', status: 'warning' },
+      { id: '1', date: '02/02/2024', time: '10:00', label: 'ניפוק מנוע', status: 'completed' },
+      { id: '2', date: 'היום', time: '12:00', label: 'זיהוי פער סטטוס', status: 'warning' }
     ],
     evidenceGraph: {
       type: 'comparison',
       title: 'פער זמנים: ניפוק מול דיווח',
       items: [
-        { label: 'זמן מאז ניפוק חלק', value: 48, maxValue: 48, color: 'bg-orange-500', displayValue: '48 שעות' },
-        { label: 'זמן בסטטוס "ממתין"', value: 48, maxValue: 48, color: 'bg-gray-400', displayValue: '48 שעות' }
-      ],
-      thresholdLabel: 'זמן תגובה תקין (שעתיים)',
-      thresholdValue: 4
-    }
-  },
-  {
-    id: 'REQ-2.0',
-    vehicleId: "צ' 66421",
-    title: 'חשד למניפולציית SLA',
-    description: 'ניסיון עקיפת מדדים - סגירה ופתיחה מחדש.',
-    severity: 'medium',
-    conflicts: [
-      { label: 'סגירה', value: 'אתמול 18:00', source: 'מערכת', isMismatch: true },
-      { label: 'פתיחה מחדש', value: 'היום 08:00', source: 'מערכת', isMismatch: true }
-    ],
-    actionLabel: 'דווח למפקד',
-    isLemon: true,
-    lemonContext: 'רכב חוזר: 4 כניסות בחודש האחרון',
-    timeline: [
-      { id: '1', date: '23/10/2023', time: '17:55', label: 'דיווח גמר', status: 'completed' },
-      { id: '2', date: '23/10/2023', time: '18:00', label: 'סגירת הזמנה', status: 'completed' },
-      { id: '3', date: '24/10/2023', time: '08:00', label: 'פתיחה מחדש', status: 'warning' },
-    ],
-    evidenceGraph: {
-      type: 'bar',
-      title: 'רצף טיפולים (חודשי)',
-      items: [
-        { label: 'טיפולים החודש', value: 4, maxValue: 5, color: 'bg-rose-500', displayValue: '4 כניסות' },
-        { label: 'ממוצע לצי', value: 1.2, maxValue: 5, color: 'bg-slate-400', displayValue: '1.2 כניסות' }
+        { label: 'זמן מאז ניפוק חלק', value: 48, maxValue: 50, color: 'bg-orange-500', displayValue: '48 שעות' },
+        { label: 'זמן בסטטוס "ממתין"', value: 48, maxValue: 50, color: 'bg-gray-400', displayValue: '48 שעות' }
       ]
     }
   },
   {
-    id: 'REQ-8.0',
-    vehicleId: "צ' 11094",
-    title: 'סגירה ללא ניפוק',
-    description: 'דיווח גמר עבודה ללא עלות חלפים.',
-    severity: 'high',
-    conflicts: [
-      { label: 'סטטוס', value: 'TECO (גמר)', source: 'ERP', isMismatch: false },
-      { label: 'עלות חלפים', value: '0.00 ₪', source: 'SAP', isMismatch: true }
+    id: '80012495',
+    vehicleId: "האמר צ' 123456",
+    title: 'מניפולציית SLA',
+    type: 'revolving',
+    description: 'סגירה ופתיחה חוזרת',
+    punchline: "זוהתה סגירה ופתיחה מחדש עבור האמר צ' 123456 תוך 12 שעות.",
+    severity: 'medium',
+    conflicts: [],
+    actionLabel: 'מזג הזמנות',
+    department: 'רכב',
+    technician: 'יוסי לוי',
+    eventTime: '18:00 אתמול',
+    statusText: 'סגירה',
+    isLemon: true,
+    lemonContext: 'ניסיון עקיפת מדדי ביצוע ע"י פיצול הזמנות.',
+    timeline: [
+      { id: '1', date: 'אתמול', time: '16:00', label: 'סגירת הזמנה (TECO)', status: 'completed' },
+      { id: '2', date: 'היום', time: '07:30', label: 'פתיחת הזמנה חדשה', status: 'warning' }
     ],
-    actionLabel: 'פתח מחדש',
+    evidenceGraph: {
+      type: 'bar',
+      title: 'רצף טיפולים',
+      items: [
+        { label: 'הזמנה א׳', value: 3, maxValue: 5, color: 'bg-green-500', displayValue: '3 ימים' },
+        { label: 'הזמנה ב׳', value: 1, maxValue: 5, color: 'bg-orange-500', displayValue: '1 יום' }
+      ]
+    }
+  },
+  {
+    id: 'ADMIN-999',
+    vehicleId: "מחלקת רכב",
+    title: 'בקרת איכות',
+    type: 'data_integrity',
+    description: 'חריגה בתיקוני רישום (קוד 999)',
+    punchline: "חריגה בכמות תיקוני רישום (קוד 999) במחלקת רכב השבוע (עלייה של 400%).",
+    severity: 'medium',
+    conflicts: [],
+    actionLabel: 'הצג חריגים',
+    department: 'רכב',
+    technician: 'רונית אברהם',
+    eventTime: '10:00 היום',
+    statusText: 'בטיפול',
+    isLemon: false,
+    timeline: [],
+    evidenceGraph: {
+      type: 'comparison',
+      title: 'שינויים ידניים (קוד 999)',
+      items: [
+        { label: 'ממוצע 3 שבועות', value: 5, maxValue: 25, color: 'bg-gray-300', displayValue: '5' },
+        { label: 'השבוע', value: 22, maxValue: 25, color: 'bg-red-500', displayValue: '22' }
+      ]
+    }
+  },
+  {
+    id: '80012501',
+    vehicleId: "האמר צ' 665544",
+    title: 'הזמנה קפואה',
+    type: 'zombie',
+    description: 'סטטוס "בעבודה" ללא פעילות',
+    punchline: 'האמר צ\' 665544 בסטטוס "עבודה", אך ללא שום פעילות כבר 72 שעות.',
+    severity: 'high',
+    conflicts: [],
+    actionLabel: 'דרוש סטטוס',
+    department: 'קשר',
+    technician: 'עמית סגל',
+    eventTime: '09:00 אתמול',
+    statusText: 'פתוח',
     isLemon: false,
     timeline: [
-      { id: '1', date: '22/10/2023', time: '09:00', label: 'כניסה לטיפול', status: 'completed' },
-      { id: '2', date: '24/10/2023', time: '11:00', label: 'סגירה מנהלית', status: 'warning' },
+      { id: '1', date: 'לפני 3 ימים', time: '08:00', label: 'עדכון סטטוס אחרון', status: 'completed' },
+      { id: '2', date: 'היום', time: '', label: 'ללא תנועת מלאי/שעות', status: 'warning' }
     ],
     evidenceGraph: {
-      type: 'bar',
-      title: 'עלות חלפים ממוצעת לטיפול זה',
+      type: 'comparison',
+      title: 'זמן קיפאון',
       items: [
-        { label: 'עלות בפועל', value: 0, maxValue: 5000, color: 'bg-red-500', displayValue: '0 ₪' },
-        { label: 'עלות תקן (טיפול 10K)', value: 3500, maxValue: 5000, color: 'bg-green-500', displayValue: '3,500 ₪' }
+        { label: 'זמן בסטטוס', value: 72, maxValue: 80, color: 'bg-red-500', displayValue: '72 שעות' },
+        { label: 'סף התראה', value: 24, maxValue: 80, color: 'bg-gray-300', displayValue: '24 שעות' }
       ]
     }
+  },
+  {
+    id: '80012505',
+    vehicleId: "זאב 772211",
+    title: 'סגירה ללא ניפוק',
+    type: 'other',
+    description: 'ניסיון עקיפת מדדים - סגירה ופתיחה מחדש.',
+    punchline: 'חשד למניפולציית SLA: סגירת תקלה ללא ניפוק חלפים.',
+    severity: 'high',
+    conflicts: [],
+    actionLabel: 'ברר מול טכנאי',
+    isLemon: false,
+    timeline: [],
+    department: 'רכב',
+    technician: 'דניאל כהן',
+    eventTime: '14:30 היום',
+    statusText: 'סגירה חריגה'
   }
 ];
 
