@@ -152,3 +152,41 @@ export interface CompassWidget {
   value: string;
   metric?: string; // e.g., "-15%"
 }
+
+// --- trends dashboard specific types ---
+
+export type TrendMetricType =
+  | 'planning_vs_execution'
+  | 'maintenance_snapshot'
+  | 'annual_planning'
+  | 'execution_quantities'
+  | 'wip_bottlenecks'
+  | 'manpower_utilization'
+  | 'norm_compliance'
+  | 'urgent_orders'
+  | 'data_quality'
+  | 'abnormal_parts';
+
+export interface DrillDownColumn {
+  key: string;
+  label: string;
+  type: 'text' | 'number' | 'date' | 'status' | 'boolean';
+  editable?: boolean; // If true, this field can be editing in the modal
+}
+
+export interface DrillDownRow {
+  id: string;
+  [key: string]: any; // Dynamic data matching keys
+}
+
+export interface TrendWidgetData {
+  id: TrendMetricType;
+  title: string;
+  visualType: 'bar' | 'stacked_bar' | 'donut' | 'line' | 'metric_card' | 'radial' | 'pie' | 'list' | 'alert';
+  chartData: any[]; // Data specifically formatted for Recharts
+  drillDownColumns: DrillDownColumn[];
+  drillDownData: DrillDownRow[];
+  editableField?: string; // Key of the field that is editable
+  description?: string;
+  availableViews?: { label: string; key: string; data: any[] }[]; // For toggling between different datasets (e.g. By User vs By Vehicle)
+}
